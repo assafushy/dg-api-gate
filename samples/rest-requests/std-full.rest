@@ -1,0 +1,43 @@
+POST  http://localhost:3002/jsonDocument/create
+content-Type: application/json
+
+{
+  "teamProjectName": "",
+  "collectionName": "",
+  "templateFile": "",
+  "contentControls": [
+    {
+      "title": "tests-description-content-control",
+      "skin": "test-std",
+      "headingLevel": 4,
+      "data": { "type": "test", "planId": 1828, "includeAttachments":true }
+    },
+    {
+      "title": "requirements-to-test-cases-content-control",
+      "skin": "trace-table",
+      "headingLevel": 4,
+      "data": {
+        "type": "query",
+        "planId": null,
+        "linkTypeFilterArray": [
+          "Microsoft.VSTS.Common.TestedBy-Reverse",
+          "Microsoft.VSTS.Common.TestedBy-Forward"
+        ],
+        "queryId": "0c004a17-5c1b-4285-b6e0-27fe644aca49"
+      }
+    },
+    {
+      "title": "test-cases-to-requirements-content-control",
+      "skin": "trace-table",
+      "headingLevel": 4,
+      "data": {
+        "type": "test",
+        "planId": 1828,
+        "linkTypeFilterArray": [
+          "Microsoft.VSTS.Common.TestedBy-Reverse",
+          "Microsoft.VSTS.Common.TestedBy-Forward"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+POST http://localhost:3002/jsonDocument/create
+content-Type: application/json
+
+{
+  "teamProjectName": "",
+  "tfsCollectionUri": "",
+  "templateFile": "",
+  "contentControls": [
+    {
+      "title": "change-description-content-control",
+      "skin": "change-table",
+      "headingLevel": "4",
+      "data": {
+        "repoId":"95c0c5dd-fefd-411e-bb6b-850e7ce7732a",
+        "from":163,
+        "to":223,
+        "rangeType":"release",
+        "linkTypeFilterArray":null
+      }
+    }
+  ],
+  "collectionName": "testcollection"
+} 

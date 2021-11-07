@@ -1,0 +1,28 @@
+GET http://10.180.0.127:3000/jsonDocument/create
+content-Type: application/json
+{
+  "teamProjectName": "",
+  "tfsCollectionUri": "",
+  "templateFile": "",
+  "contentControls": [
+    {
+      "title": "system-capabilities",
+      "skin": "table",
+      "headingLevel": "1",
+      "data": {
+        "type": "query",
+        "queryId": "9051dd37-f8c1-456b-ba57-637452c0fef9"
+      }
+    },
+    {
+      "title": "system-requirements",
+      "skin": "paragraph",
+      "headingLevel": "1",
+      "data": {
+        "type": "query",
+        "queryId": "9051dd37-f8c1-456b-ba57-637452c0fef9"
+      }
+    }
+  ],
+  "collectionName": ""
+}
