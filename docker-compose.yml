@@ -1,0 +1,31 @@
+version: "3.9"
+
+services:
+  dg-api-gate:
+    build: .
+    command: npm run dev
+    volumes:
+      - ./:/usr/src/app
+    ports:
+      - "3000:3001"
+  dg-content-control:
+    image: assafushy/dg-content-control:latest
+    ports:
+      - "3000:3000"
+  json-to-word:
+    image: assafushy/json-to-word:test
+    ports:
+      - "5000:5000"
+  s3:
+    image: minio/minio
+    ports:
+      - "9000:9000"
+      - "4000:4000"
+    volumes:
+      - ./minio:/data
+    environment:
+      MINIO_ACCESS_KEY: "your-key"
+      MINIO_SECRET_KEY: "your-secret"
+      MINIO_ROOT_USER: "your-root-user"
+      MINIO_ROOT_PASSWORD: "your-root-password"
+    command: server --address 0.0.0.0:9000  --console-address ":4000" /data

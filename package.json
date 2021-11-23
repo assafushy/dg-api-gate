@@ -4,7 +4,7 @@
   "description": "create sysrs document data from tfs",
   "main": "server.js",
   "scripts": {
-    "dev": "tsc -watch",
+    "dev": "nodemon ./src/server.ts",
     "start": "node ./bin/server.js",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -16,21 +16,19 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@types/jaeger-client": "^3.18.2",
     "axios": "^0.18.1",
-    "dg-content-control": "^1.1.39",
     "dotenv": "^7.0.0",
     "express": "^4.17.1",
     "jaeger-client": "^3.18.1",
-    "moment": "^2.25.3",
-    "nodemailer": "^6.4.6",
-    "opentracing": "^0.14.5",
-    "socket.io": "^3.0.3"
+    "moment": "^2.25.3"
   },
   "devDependencies": {
     "@types/express": "^4.17.6",
     "@types/node": "^11.15.12",
     "@types/nodemailer": "^6.4.0",
-    "nodemon": "^1.19.4"
+    "nodemon": "^1.19.4",
+    "ts-jest": "^25.5.1",
+    "ts-node": "^10.4.0",
+    "typescript": "^3.8.3"
   }
 }
