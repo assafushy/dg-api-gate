@@ -1,12 +1,13 @@
 {
-  "name": "sysrs",
-  "version": "1.0.0",
-  "description": "create sysrs document data from tfs",
+  "name": "dg-api-gate",
+  "version": "0.0.1",
+  "description": "a document generator api gate",
   "main": "server.js",
   "scripts": {
     "dev": "nodemon ./src/server.ts",
     "start": "node ./bin/server.js",
     "build": "tsc",
+    "watch": "tsc --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,7 +21,8 @@
     "dotenv": "^7.0.0",
     "express": "^4.17.1",
     "jaeger-client": "^3.18.1",
-    "moment": "^2.25.3"
+    "moment": "^2.25.3",
+    "winston": "^3.3.3"
   },
   "devDependencies": {
     "@types/express": "^4.17.6",
@@ -29,6 +31,6 @@
     "nodemon": "^1.19.4",
     "ts-jest": "^25.5.1",
     "ts-node": "^10.4.0",
-    "typescript": "^3.8.3"
+    "typescript": "^3.9.10"
   }
 }
