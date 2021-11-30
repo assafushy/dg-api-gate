@@ -9,11 +9,11 @@ services:
     ports:
       - "3000:3001"
   dg-content-control:
-    image: assafushy/dg-content-control:latest
+    image: assafushy/dg-content-control-generator:latest
     ports:
       - "3000:3000"
   json-to-word:
-    image: assafushy/json-to-word:test
+    image: assafushy/json-to-word:latest
     ports:
       - "5000:5000"
   s3:
