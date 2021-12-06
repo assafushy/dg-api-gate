@@ -8,6 +8,9 @@ services:
       - ./:/usr/src/app
     ports:
       - "3001:3000"
+    environment:
+      dgContentControlUrl: "http://dg-content-control:3000"
+      jsonToWordPostUrl: "http://json-to-word:5000"
   dg-content-control:
     image: assafushy/dg-content-control-generator:latest
     ports:

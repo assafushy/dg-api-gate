@@ -5,7 +5,7 @@ import logger from "../../util/logger";
 export class JSONDocumentGenerator {
   public async generateContentControls(
     documentRequest: DocumentRequest
-  ): Promise<any[]> {
+  ): Promise<any> {
     return Promise.all(
       documentRequest.contentControls.map(async (contentControl) => {
         logger.info(
