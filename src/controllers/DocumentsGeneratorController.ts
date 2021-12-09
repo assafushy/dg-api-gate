@@ -8,12 +8,11 @@ export class DocumentsGeneratorController {
   public async createJSONDoc(req: Request, res: Response) {
     let json = JSON.stringify(req.body);
     let documentRequest: DocumentRequest = JSON.parse(json);
-
     let jsonDocumentGenerator: JSONDocumentGenerator =
       new JSONDocumentGenerator();
     try {
-      //generate document template
-      let docTemplate: any = axios.post(
+        //generate document template
+      let docTemplateResponce: any = await axios.post(
         `${process.env.dgContentControlUrl}/generate-doc-template`,
         {
           orgUrl: documentRequest.tfsCollectionUri,
@@ -22,18 +21,19 @@ export class DocumentsGeneratorController {
           outputType: "json",
           templateUrl: documentRequest.templateFile,
         }
-      );
+        );
+      let docTemplate = docTemplateResponce.data
+      docTemplate.uploadProperties = documentRequest.uploadProperties
       //generate content controls
       let contentControls = await jsonDocumentGenerator.generateContentControls(
         documentRequest
-      );
-      docTemplate.contentControls = contentControls;
-      //generate word doc
+        );
+        docTemplate.contentControls = contentControls;
       let documentUrl: any = await axios.post(
-        `${process.env.jsonToWordPostUrl}`,
+        `${process.env.jsonToWordPostUrl}/api/word/create`,
         docTemplate
       );
-      return documentUrl;
+      return documentUrl.data;
     } catch (err) {
       logger.error(`Error running JsonToWord`);
     }

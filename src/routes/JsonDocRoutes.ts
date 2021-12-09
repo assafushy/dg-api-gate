@@ -10,12 +10,9 @@ export class Routes {
     app.route("/jsonDocument").get((req: Request, res: Response) => {
       res.status(200).json({ status: "online - " + moment().format() });
     });
-
-    app
-      .route("/jsonDocument/create")
-      .post(async (req: Request, res: Response) => {
-        this.documentsGeneratorController.createJSONDoc(req, res);
-        res.status(200).json({ status: "ok" });
-      });
-  }
+    app.route("/jsonDocument/create").post(async (req: Request, res: Response) => {
+      let documentUrl = await this.documentsGeneratorController.createJSONDoc(req, res);
+      res.status(200).json({ documentUrl });
+    });
+    }
 }

@@ -8,6 +8,9 @@ services:
       - ./:/usr/src/app
     ports:
       - "3001:3000"
+    environment:
+      dgContentControlUrl: "http://dg-content-control:3000"
+      jsonToWordPostUrl: "http://json-to-word:5000"
   dg-content-control:
     image: assafushy/dg-content-control-generator:latest
     ports:
@@ -16,6 +19,8 @@ services:
     image: assafushy/json-to-word:latest
     ports:
       - "5000:5000"
+    environment:
+      MinioUrl: "http://s3:9000"
   s3:
     image: minio/minio
     ports:
@@ -28,4 +33,5 @@ services:
       MINIO_SECRET_KEY: "your-secret"
       MINIO_ROOT_USER: "your-root-user"
       MINIO_ROOT_PASSWORD: "your-root-password"
+      MINIO_REGION: "ap-southeast-1"
     command: server --address 0.0.0.0:9000  --console-address ":4000" /data

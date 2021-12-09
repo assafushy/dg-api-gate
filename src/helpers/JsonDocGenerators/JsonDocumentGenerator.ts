@@ -5,14 +5,14 @@ import logger from "../../util/logger";
 export class JSONDocumentGenerator {
   public async generateContentControls(
     documentRequest: DocumentRequest
-  ): Promise<any[]> {
+  ): Promise<any> {
     return Promise.all(
       documentRequest.contentControls.map(async (contentControl) => {
         logger.info(
           `generating ${contentControl.type} content for: ${contentControl.title}`
         );
         try {
-          return axios.post(
+          let contentControlResponse = await axios.post(
             `${process.env.dgContentControlUrl}/generate-content-control`,
             {
               orgUrl: documentRequest.tfsCollectionUri,
@@ -28,6 +28,7 @@ export class JSONDocumentGenerator {
               },
             }
           );
+          return contentControlResponse.data;
         } catch (err) {
           logger.error(`Error adding content control ${contentControl.title}`);
           logger.error(err);

@@ -1,6 +1,7 @@
 export interface DocumentRequest {
   documentId?: string;
   templateFile: string;
+  uploadProperties: UploadProperties;
   teamProjectName: string;
   tfsCollectionUri: string;
   PAT: string;
@@ -8,7 +9,15 @@ export interface DocumentRequest {
   vcrmQueryId: string;
   userEmail: string;
 }
+export interface UploadProperties {
+  bucketName: string,
+  fileName: string,
+  AwsAccessKeyId: string,
+  AwsSecretAccessKey: string,
+  Region: string,
+  ServiceUrl: string
 
+}
 export interface ContentControl {
   title: string;
   type: string;
