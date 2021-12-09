@@ -20,7 +20,7 @@ services:
     ports:
       - "5000:5000"
     environment:
-      ServiceUrl: "http://s3:9000"
+      MinioUrl: "http://s3:9000"
   s3:
     image: minio/minio
     ports:
