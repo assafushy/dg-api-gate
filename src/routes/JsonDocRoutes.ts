@@ -12,12 +12,8 @@ export class Routes {
       res.status(200).json({ status: "online - " + moment().format() });
     });
     app.route("/jsonDocument/create").post(async (req: Request, res: Response) => {
-      let documentUrl = this.documentsGeneratorController.createJSONDoc(req, res);
+      let documentUrl = await this.documentsGeneratorController.createJSONDoc(req, res);
       res.status(200).json({ documentUrl });
-    });
-    app.route("/getDoc").post(async (req: Request, res: Response) => {
-      let data = await this.documentsGeneratorController.getJSONDoc(req, res)
-      res.status(200).json({ data });
     });
     }
 }
