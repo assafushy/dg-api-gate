@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { DocumentsGeneratorController } from "../controllers/DocumentsGeneratorController";
 import moment from "moment";
-import Axios from "axios";
 
 export class Routes {
   public documentsGeneratorController: DocumentsGeneratorController =
