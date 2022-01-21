@@ -1,5 +1,6 @@
 import express from "express";
 import * as bodyParser from "body-parser";
+import cors from "cors"
 import { Routes } from "./routes/JsonDocRoutes";
 import { injectRootSpan } from "./helpers/openTracing/tracer-middleware";
 export default class App {
@@ -9,6 +10,7 @@ export default class App {
   constructor() {
     this.app = express();
     this.config();
+    this.app.use(cors());
     this.app.use(injectRootSpan);
     this.routePrv.routes(this.app);
   }
