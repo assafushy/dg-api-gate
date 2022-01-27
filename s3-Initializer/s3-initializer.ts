@@ -48,7 +48,7 @@ const createIfBucketDoesentExsist = async (bucketName,endPoint,accessKey,secretK
           s3Client.makeBucket(bucketName, "ap-southeast-1").then(() => {
             s3Client.setBucketPolicy(bucketName,JSON.stringify(policy)).then(() =>
               {
-                logger.info(`Bucket ${bucketName} created successfully in "ap-southeast-1".`),
+                logger.info(`Bucket ${bucketName} created successfully in "ap-southeast-1".`)
                 resolve(`Bucket ${bucketName} created successfully in "ap-southeast-1".`)
               });
           });
@@ -87,7 +87,7 @@ try
 {
   var file = path+fileName;
   var fileStream = Fs.createReadStream(file)
-  var fileStat = Fs.stat(file, function(err, stats) {
+  Fs.stat(file, function(err, stats) {
     if (err) {
       return logger.error(err)
     }
