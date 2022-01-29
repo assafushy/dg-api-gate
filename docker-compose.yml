@@ -17,11 +17,11 @@ services:
       dgContentControlUrl: "http://dg-content-control:3000"
       jsonToWordPostUrl: "http://json-to-word:5000"
   dg-init-job:
-    image: dg-init:latest
+    image: assafushy/dg-initializer:latest
     depends_on:
       - "s3"
     environment:
-      <<: *&common-vars
+      <<: *common-vars
       MINIOROOTUSER: "your-root-user"
       MINIOROOTPASSWORD: "your-root-password"
   dg-content-control:
@@ -42,5 +42,5 @@ services:
     volumes:
       - ./minio:/data
     environment:
-     <<: *&common-vars
+      <<: *common-vars
     command: server --address 0.0.0.0:9000  --console-address ":4000" /data

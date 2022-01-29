@@ -15,3 +15,5 @@ sleep 20
 
 #load form-templates
 ./mc cp ./assets/document-forms/* doc-gen-minio/document-forms
+
+exit 0
