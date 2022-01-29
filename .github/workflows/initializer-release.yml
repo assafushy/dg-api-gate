@@ -1,4 +1,4 @@
-name: "🚀 publish"
+name: "🚀 publish - dg-initializer"
 on:
   push:
     branches:
@@ -26,15 +26,15 @@ jobs:
         id: meta
         uses: docker/metadata-action@v3
         with:
-          images: assafushy/json-to-word
+          images: assafushy/dg-initializer
           tags: |
             ${{steps.docker-id.outputs.docker-tag}}
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
-          context: .
+          context: ./s3-initializer/
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
             ${{ steps.meta.outputs.tags }}
-            assafushy/json-to-word:latest
+            assafushy/dg-initializer:latest
