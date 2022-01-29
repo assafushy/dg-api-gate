@@ -11,6 +11,12 @@ services:
     environment:
       dgContentControlUrl: "http://dg-content-control:3000"
       jsonToWordPostUrl: "http://json-to-word:5000"
+  dg-init-job:
+    image: dg-init:latest
+    environment:
+      MINIOSERVER: "http://s3:9000"
+      MINIOROOTUSER: "your-root-user"
+      MINIOROOTPASSWORD: "your-root-password"
   dg-content-control:
     image: assafushy/dg-content-control-generator:latest
     ports:
