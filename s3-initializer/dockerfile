@@ -1,0 +1,4 @@
+FROM ubuntu:20.04
+WORKDIR /usr/app
+COPY . . 
+CMD ["./s3-init.sh"]
