@@ -1,5 +1,10 @@
 version: "3.9"
 
+x-common-variables: &common-vars
+  MINIOSERVER: "http://s3:9000"
+  MINIO_ROOT_USER: "your-root-user"
+  MINIO_ROOT_PASSWORD: "your-root-password"
+  MINIO_REGION: "ap-southeast-1"
 services:
   dg-api-gate:
     build: .
@@ -13,8 +18,10 @@ services:
       jsonToWordPostUrl: "http://json-to-word:5000"
   dg-init-job:
     image: dg-init:latest
+    depends_on:
+      - "s3"
     environment:
-      MINIOSERVER: "http://s3:9000"
+      <<: *&common-vars
       MINIOROOTUSER: "your-root-user"
       MINIOROOTPASSWORD: "your-root-password"
   dg-content-control:
@@ -35,9 +42,5 @@ services:
     volumes:
       - ./minio:/data
     environment:
-      MINIO_ACCESS_KEY: "your-key"
-      MINIO_SECRET_KEY: "your-secret"
-      MINIO_ROOT_USER: "your-root-user"
-      MINIO_ROOT_PASSWORD: "your-root-password"
-      MINIO_REGION: "ap-southeast-1"
+     <<: *&common-vars
     command: server --address 0.0.0.0:9000  --console-address ":4000" /data
