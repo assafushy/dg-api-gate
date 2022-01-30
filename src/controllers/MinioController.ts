@@ -1,15 +1,14 @@
 import { Request, Response } from "express";
 import { MinioRequest } from "models/MinioRequest";
 
-import axios from "axios";
 import logger from "../util/logger";
 
 var Minio = require("minio");
 
 export class MinioController {
   public async getBucketFileList(req: Request, res: Response) {
-    let json = JSON.stringify(req.body);
-    let minioRequest: MinioRequest = JSON.parse(json);
+    let jsonReq = JSON.stringify(req.body);
+    let minioRequest: MinioRequest = JSON.parse(jsonReq);
     return new Promise((resolve, reject) => {
       const s3Client = new Minio.Client({
         endPoint: process.env.MINIO_ENDPOINT,
@@ -40,8 +39,8 @@ export class MinioController {
   }
 
   public async getJSONContentFromFile(req: Request, res: Response) {
-    let json = JSON.stringify(req.body);
-    let minioRequest: MinioRequest = JSON.parse(json);
+    let jsonReq = JSON.stringify(req.body);
+    let minioRequest: MinioRequest = JSON.parse(jsonReq);
     return new Promise((resolve, reject) => {
       const s3Client = new Minio.Client({
         endPoint: process.env.MINIO_ENDPOINT,
@@ -67,17 +66,17 @@ export class MinioController {
             const json = JSON.parse(cleaned);
             return resolve(json);
           });
-          dataStream.on("error", function (err) {
-            logger.error(err);
-            return reject(err);
+          dataStream.on("error", function (streamErr) {
+            logger.error(streamErr);
+            return reject(streamErr);
           });
         }
       );
     });
   }
   public async createBucketIfDoesentExsist(req: Request, res: Response) {
-    let json = JSON.stringify(req.body);
-    let minioRequest: MinioRequest = JSON.parse(json);
+    let jsonReq = JSON.stringify(req.body);
+    let minioRequest: MinioRequest = JSON.parse(jsonReq);
     const s3Client = new Minio.Client({
       endPoint: process.env.MINIO_ENDPOINT,
       port: 9000,
