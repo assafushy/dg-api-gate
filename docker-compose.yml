@@ -26,6 +26,8 @@ services:
     ports:
       - "3001:3000"
     environment:
+      <<: *common-vars
+      MINIO_ENDPOINT: "s3"
       dgContentControlUrl: "http://dg-content-control:3000"
       jsonToWordPostUrl: "http://json-to-word:5000"
   dg-init-job:
