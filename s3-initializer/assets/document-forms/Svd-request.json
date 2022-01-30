@@ -1,0 +1,15 @@
+{
+    "documentTitle": "SVD-Document",
+    "contentControls": [
+    {
+        "type": "change-description-table",
+        "title": "required-states-and-modes",
+        "skin": "change-table"
+    },
+    {
+        "type": "change-description-table",
+        "title": "system-capabilities",
+        "skin": "change-table"
+    }
+]
+}
