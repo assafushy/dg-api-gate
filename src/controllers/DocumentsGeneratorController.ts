@@ -8,10 +8,21 @@ export class DocumentsGeneratorController {
   public async createJSONDoc(req: Request, res: Response) {
     let json = JSON.stringify(req.body);
     let documentRequest: DocumentRequest = JSON.parse(json);
+    if (!documentRequest.uploadProperties.AwsAccessKeyId) {
+      documentRequest.uploadProperties.AwsAccessKeyId =
+        process.env.MINIO_ROOT_USER;
+    }
+    if (!documentRequest.uploadProperties.AwsSecretAccessKey) {
+      documentRequest.uploadProperties.AwsSecretAccessKey =
+        process.env.MINIO_ROOT_PASSWORD;
+    }
+    if (!documentRequest.uploadProperties.Region) {
+      documentRequest.uploadProperties.Region = process.env.MINIO_REGION;
+    }
     let jsonDocumentGenerator: JSONDocumentGenerator =
       new JSONDocumentGenerator();
     try {
-        //generate document template
+      //generate document template
       let docTemplateResponce: any = await axios.post(
         `${process.env.dgContentControlUrl}/generate-doc-template`,
         {
@@ -21,14 +32,14 @@ export class DocumentsGeneratorController {
           outputType: "json",
           templateUrl: documentRequest.templateFile,
         }
-        );
-      let docTemplate = docTemplateResponce.data
-      docTemplate.uploadProperties = documentRequest.uploadProperties
+      );
+      let docTemplate = docTemplateResponce.data;
+      docTemplate.uploadProperties = documentRequest.uploadProperties;
       //generate content controls
       let contentControls = await jsonDocumentGenerator.generateContentControls(
         documentRequest
-        );
-        docTemplate.contentControls = contentControls;
+      );
+      docTemplate.contentControls = contentControls;
       let documentUrl: any = await axios.post(
         `${process.env.jsonToWordPostUrl}/api/word/create`,
         docTemplate

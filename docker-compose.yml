@@ -11,13 +11,7 @@ services:
     ports:
       - "80:80"
     environment:
-      <<: *common-vars
-      MINIO-ENDPOINT-PLACEHOLDER: "s3"
-      MINIO-URL-PLACEHOLDER: "http://s3:9000"
       BACKEND-URL-PLACEHOLDER-ContentControl: "http://dg-api-gate:3001/jsonDocument"
-      MINIO-ACCESS-ID-PLACEHOLDER: "your-root-user"
-      MINIO-SECRET-ACCESS-KEY-PLACEHOLDER: "your-root-password"
-      AWS-REGION-PLACEHOLDER: "ap-southeast-1"
   dg-api-gate:
     build: .
     command: npm run dev
