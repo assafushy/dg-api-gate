@@ -22,6 +22,7 @@ export class MinioController {
         minioRequest.bucketName = minioRequest.bucketName.replace("_", "-");
         let stream = s3Client.listObjectsV2(minioRequest.bucketName);
         stream.on("data", (obj) => {
+          obj.key = `${process.env.MINIOSERVER}/${minioRequest.bucketName}/${obj.name}`
           objects.push(obj);
         });
         stream.on("end", (obj) => {
