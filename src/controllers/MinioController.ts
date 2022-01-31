@@ -7,7 +7,7 @@ var Minio = require("minio");
 
 export class MinioController {
   public async getBucketFileList(req: Request, res: Response) {
-    let jsonReq = JSON.stringify(req.body);
+    let jsonReq = JSON.stringify(req.params);
     let minioRequest: MinioRequest = JSON.parse(jsonReq);
     return new Promise((resolve, reject) => {
       const s3Client = new Minio.Client({
@@ -22,6 +22,7 @@ export class MinioController {
         minioRequest.bucketName = minioRequest.bucketName.replace("_", "-");
         let stream = s3Client.listObjectsV2(minioRequest.bucketName);
         stream.on("data", (obj) => {
+          obj.key = `${process.env.MINIOSERVER}/${minioRequest.bucketName}/${obj.name}`
           objects.push(obj);
         });
         stream.on("end", (obj) => {
@@ -39,7 +40,7 @@ export class MinioController {
   }
 
   public async getJSONContentFromFile(req: Request, res: Response) {
-    let jsonReq = JSON.stringify(req.body);
+    let jsonReq = JSON.stringify(req.params);
     let minioRequest: MinioRequest = JSON.parse(jsonReq);
     return new Promise((resolve, reject) => {
       const s3Client = new Minio.Client({

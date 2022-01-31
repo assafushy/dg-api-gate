@@ -17,11 +17,11 @@ export class Routes {
       let documentUrl = await this.documentsGeneratorController.createJSONDoc(req, res);
       res.status(200).json({ documentUrl });
     });
-    app.route("/minio/bucketFileList").post(async (req: Request, res: Response) => {
+    app.route("/minio/bucketFileList/:bucketName").get(async (req: Request, res: Response) => {
       let bucketFileList = await this.minioController.getBucketFileList(req, res);
       res.status(200).json({ bucketFileList })
     });
-    app.route("/minio/contentFromFile").post(async (req: Request, res: Response) => {
+    app.route("/minio/contentFromFile/:bucketName/:fileName").get(async (req: Request, res: Response) => {
       let contentFromFile = await this.minioController.getJSONContentFromFile(req, res);
       res.status(200).json({ contentFromFile })
     });
