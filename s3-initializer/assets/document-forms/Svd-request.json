@@ -1,0 +1,10 @@
+{
+    "documentTitle": "SVD-Document",
+    "contentControls": [
+    {
+        "type": "change-description-table",
+        "title": "required-states-and-modes",
+        "skin": "change-table"
+    }
+]
+}
