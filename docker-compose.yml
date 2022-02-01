@@ -11,7 +11,7 @@ services:
     ports:
       - "80:80"
     environment:
-      BACKEND-URL-PLACEHOLDER-ContentControl: "http://dg-api-gate:3001/jsonDocument"
+      api-gate: "http://dg-api-gate:3001"
   dg-api-gate:
     build: .
     command: npm run dev
