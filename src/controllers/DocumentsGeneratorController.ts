@@ -19,6 +19,9 @@ export class DocumentsGeneratorController {
     if (!documentRequest.uploadProperties.Region) {
       documentRequest.uploadProperties.Region = process.env.MINIO_REGION;
     }
+    if(!documentRequest.uploadProperties.ServiceUrl) {
+      documentRequest.uploadProperties.ServiceUrl = process.env.MINIOSERVER;
+    }
     let jsonDocumentGenerator: JSONDocumentGenerator =
       new JSONDocumentGenerator();
     try {

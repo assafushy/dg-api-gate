@@ -40,8 +40,6 @@ services:
     image: assafushy/json-to-word:latest
     ports:
       - "5000:5000"
-    environment:
-      MinioUrl: "http://s3:9000"
   s3:
     image: minio/minio
     ports:
