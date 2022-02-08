@@ -18,16 +18,23 @@ export class Routes {
       res.status(200).json({ documentUrl });
     });
     app.route("/minio/bucketFileList/:bucketName").get(async (req: Request, res: Response) => {
-      let bucketFileList = await this.minioController.getBucketFileList(req, res);
-      res.status(200).json({ bucketFileList })
+      this.minioController.getBucketFileList(req, res).then((bucketFileList) => {
+        res.status(200).json({ bucketFileList })
+      });
     });
     app.route("/minio/contentFromFile/:bucketName/:fileName").get(async (req: Request, res: Response) => {
-      let contentFromFile = await this.minioController.getJSONContentFromFile(req, res);
-      res.status(200).json({ contentFromFile })
+      this.minioController.getJSONContentFromFile(req, res).then((contentFromFile ) => {
+        res.status(200).json({ contentFromFile  })
+      }).catch((err ) => {
+        res.status(404).json({ status:404,message:err })
+      });
     });
     app.route("/minio/createBucket").post(async (req: Request, res: Response) => {
-      await this.minioController.createBucketIfDoesentExsist(req, res);
-      res.status(200).json({ })
+      this.minioController.createBucketIfDoesentExsist(req, res).then(( response )=> {
+        res.status(200).json({ response })
+      }).catch((err ) => {
+        res.status(404).json({ status:404,message:err })
+      });
     });
     }
 }

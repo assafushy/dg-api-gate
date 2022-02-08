@@ -22,6 +22,9 @@ export class DocumentsGeneratorController {
     if(!documentRequest.uploadProperties.ServiceUrl) {
       documentRequest.uploadProperties.ServiceUrl = process.env.MINIOSERVER;
     }
+    documentRequest.uploadProperties.bucketName = documentRequest.uploadProperties.bucketName.toLowerCase();
+    documentRequest.uploadProperties.bucketName = documentRequest.uploadProperties.bucketName.replace("_", "-");
+    documentRequest.uploadProperties.bucketName = documentRequest.uploadProperties.bucketName.replace(" " ,"");
     let jsonDocumentGenerator: JSONDocumentGenerator =
       new JSONDocumentGenerator();
     try {
