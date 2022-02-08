@@ -19,9 +19,7 @@ export class MinioController {
       });
       try {
         let objects = [];
-        minioRequest.bucketName = minioRequest.bucketName.toLowerCase();
-        minioRequest.bucketName = minioRequest.bucketName.replace("_", "-");
-        minioRequest.bucketName = minioRequest.bucketName.replace(" " ,"");
+        this.standardizeRequest(minioRequest);
         let stream = s3Client.listObjectsV2(minioRequest.bucketName);
         stream.on("data", (obj) => {
           obj.key = `${process.env.MINIOSERVER}/${minioRequest.bucketName}/${obj.name}`;
@@ -52,9 +50,7 @@ export class MinioController {
         accessKey: process.env.MINIO_ROOT_USER,
         secretKey: process.env.MINIO_ROOT_PASSWORD,
       });
-        minioRequest.bucketName = minioRequest.bucketName.toLowerCase();
-        minioRequest.bucketName = minioRequest.bucketName.replace("_", "-");
-        minioRequest.bucketName = minioRequest.bucketName.replace(" " ,"");
+      this.standardizeRequest(minioRequest);
         let miniData = "";
         s3Client.getObject(
           minioRequest.bucketName,
@@ -92,9 +88,7 @@ export class MinioController {
       accessKey: process.env.MINIO_ROOT_USER,
       secretKey: process.env.MINIO_ROOT_PASSWORD,
     });
-      minioRequest.bucketName = minioRequest.bucketName.toLowerCase();
-      minioRequest.bucketName = minioRequest.bucketName.replace("_", "-");
-      minioRequest.bucketName = minioRequest.bucketName.replace(" " ,"");
+    this.standardizeRequest(minioRequest);
       s3Client.bucketExists(minioRequest.bucketName).then((exsistRes) => {
         if (exsistRes) {
           logger.info(`Bucket - ${minioRequest.bucketName} exsists.`);
@@ -130,5 +124,10 @@ export class MinioController {
         return reject(err.message)
       });
   });
+  }
+  private standardizeRequest(minioRequest :MinioRequest){
+    minioRequest.bucketName = minioRequest.bucketName.toLowerCase();
+    minioRequest.bucketName = minioRequest.bucketName.replace("_", "-");
+    minioRequest.bucketName = minioRequest.bucketName.replace(" " ,"");
   }
 }
