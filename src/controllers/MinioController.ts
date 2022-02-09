@@ -19,10 +19,18 @@ export class MinioController {
       });
       try {
         let objects = [];
+        
+        let url = "";
         this.standardizeRequest(minioRequest);
+        if (req.query.isExternalUrl == 'true') {
+          url = `${process.env.minioPublicEndPoint}/${minioRequest.bucketName}/`
+        }
+        else {
+          url = `${process.env.MINIOSERVER}/${minioRequest.bucketName}/`;
+        }        
         let stream = s3Client.listObjectsV2(minioRequest.bucketName);
         stream.on("data", (obj) => {
-          obj.key = `${process.env.MINIOSERVER}/${minioRequest.bucketName}/${obj.name}`;
+          obj.url = url+obj.name;
           objects.push(obj);
         });
         stream.on("end", (obj) => {
