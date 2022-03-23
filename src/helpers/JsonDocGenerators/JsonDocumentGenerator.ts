@@ -20,6 +20,10 @@ export class JSONDocumentGenerator {
               projectName: documentRequest.teamProjectName,
               outputType: "json",
               templateUrl: documentRequest.templateFile,
+              minioEndPoint: documentRequest.uploadProperties.ServiceUrl,
+              minioAccessKey:  documentRequest.uploadProperties.AwsAccessKeyId,
+              minioSecretKey:  documentRequest.uploadProperties.AwsSecretAccessKey,
+              attachmentsBucketName: "attachments",
               contentControlOptions: {
                 title: contentControl.title,
                 type: contentControl.type,

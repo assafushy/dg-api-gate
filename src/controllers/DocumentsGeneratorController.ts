@@ -37,6 +37,10 @@ export class DocumentsGeneratorController {
           projectName: documentRequest.teamProjectName,
           outputType: "json",
           templateUrl: documentRequest.templateFile,
+          minioEndPoint: documentRequest.uploadProperties.ServiceUrl,
+          minioAccessKey:  documentRequest.uploadProperties.AwsAccessKeyId,
+          minioSecretKey:  documentRequest.uploadProperties.AwsSecretAccessKey,
+          attachmentsBucketName: "attachments",
         }
       );
       let docTemplate = docTemplateResponce.data;
@@ -44,8 +48,14 @@ export class DocumentsGeneratorController {
       //generate content controls
       let contentControls = await jsonDocumentGenerator.generateContentControls(
         documentRequest
-      );
-      docTemplate.contentControls = contentControls;
+        );
+        docTemplate.contentControls = contentControls;
+        docTemplate.minioAttachmentData = [];
+        contentControls.forEach(contentControl => {
+          if(contentControl.minioAttachmentData){
+            docTemplate.minioAttachmentData = docTemplate.minioAttachmentData.concat(contentControl.minioAttachmentData)
+          }
+        });
       let documentUrl: any = await axios.post(
         `${process.env.jsonToWordPostUrl}/api/word/create`,
         docTemplate
