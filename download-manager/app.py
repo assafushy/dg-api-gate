@@ -2,6 +2,7 @@ import flask
 from minio.error import S3Error
 from flask import request, jsonify
 from attachment_service import AttachmentService
+from asgiref.wsgi import WsgiToAsgi
 
 
 app = flask.Flask(__name__)
@@ -28,3 +29,6 @@ try:
         return jsonify(res)
 except request.exceptions.RequestException as e:
     pass
+
+
+download_manager_app = WsgiToAsgi(app)
