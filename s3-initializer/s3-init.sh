@@ -16,4 +16,8 @@ sleep 20
 #load form-templates
 ./mc cp ./assets/document-forms/* doc-gen-minio/document-forms
 
+# check and  setup bucket attachments
+./mc mb doc-gen-minio/attachments
+./mc policy set public doc-gen-minio/attachments
+
 exit 0
