@@ -2,7 +2,7 @@ name: "🚀 publish - dg-download-manager"
 on:
   push:
     branches:
-      - features/attachments-properties
+      - main
 jobs:
   release:
     name: 🚀 publish
