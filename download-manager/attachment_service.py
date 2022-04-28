@@ -23,19 +23,24 @@ class AttachmentService:
     async def process_attachment(self):
         file_name = self.url.split("/")[-1] + self.ext
         file_bucket_path = f"{self.project_name}/{file_name}"
-        azure_response = requests.get(url=self.url, headers=self.headers)
+        azure_response = requests.get(url=self.url+"?download=true", headers=self.headers)
         open(file_name, 'wb').write(azure_response.content)
-        full_download_path = f"http://{self.minio_end_point}/{self.bucket_name}/{file_bucket_path}"
-        client = Minio(
-            self.minio_end_point,
-            access_key=self.minio_access_key,
-            secret_key=self.minio_secret_key,
-            secure=False,
-        )
-        client.fput_object(
-            self.bucket_name, file_bucket_path, file_name,
-        )
-        os.remove(file_name)
+        if os.stat(file_name).st_size == 0:
+            os.remove(file_name)
+            full_download_path = f"http://{self.minio_end_point}/attachments/assets/bad-attachment.png"
+            file_name = "bad-attachment.png"
+        else:
+            full_download_path = f"http://{self.minio_end_point}/{self.bucket_name}/{file_bucket_path}"
+            client = Minio(
+                self.minio_end_point,
+                access_key=self.minio_access_key,
+                secret_key=self.minio_secret_key,
+                secure=False,
+            )
+            client.fput_object(
+                self.bucket_name, file_bucket_path, file_name,
+            )
+            os.remove(file_name)
         value = {
             "attachmentPath": full_download_path,
             "fileName": file_name
