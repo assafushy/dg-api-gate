@@ -1,0 +1,10 @@
+{
+    "documentTitle": "Test-plan-svd-document",
+    "contentControls": [
+    { 
+        "type": "test-description",
+        "title": "required-states-and-modes",
+        "skin": "test-std"
+    }
+]
+}

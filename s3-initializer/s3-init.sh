@@ -20,4 +20,8 @@ sleep 20
 ./mc mb doc-gen-minio/attachments
 ./mc policy set public doc-gen-minio/attachments
 
+#load bucket attachment assets
+./mc cp ./assets/attachments/* doc-gen-minio/attachments/assets
+
+
 exit 0
