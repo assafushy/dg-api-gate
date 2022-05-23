@@ -35,6 +35,10 @@ class AttachmentService:
             os.remove(file_name)
             full_download_path = f"http://{self.minio_end_point}/attachments/bad-attachment.png"
             file_name = "bad-attachment.png"
+            value = {
+                "attachmentPath": full_download_path,
+                "fileName": file_name
+                }
         else:
             client = Minio(
                 self.minio_end_point,
