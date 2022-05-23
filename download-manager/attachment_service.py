@@ -26,7 +26,7 @@ class AttachmentService:
 
     async def process_attachment(self):
         file_name = self.url.split("/")[-1] + self.ext
-        time_now = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
+        time_now = datetime.now().strftime("%Y-%m-%d")
         file_bucket_path = f"{self.project_name}/{time_now}/{file_name}"
         value = {}
         azure_response = requests.get(url=self.url+"?download=true", headers=self.headers)
