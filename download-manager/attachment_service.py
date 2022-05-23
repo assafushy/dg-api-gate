@@ -33,7 +33,7 @@ class AttachmentService:
         open(file_name, 'wb').write(azure_response.content)
         if os.stat(file_name).st_size == 0:
             os.remove(file_name)
-            full_download_path = f"http://{self.minio_end_point}/attachments/assets/bad-attachment.png"
+            full_download_path = f"http://{self.minio_end_point}/attachments/bad-attachment.png"
             file_name = "bad-attachment.png"
         else:
             client = Minio(
