@@ -49,7 +49,7 @@ export class DocumentsGeneratorController {
       let contentControls = await jsonDocumentGenerator.generateContentControls(
         documentRequest
         );
-        docTemplate.contentControls = contentControls;
+        docTemplate.JsonDataList = contentControls;
         docTemplate.minioAttachmentData = [];
         contentControls.forEach(contentControl => {
           if(contentControl.minioAttachmentData){
