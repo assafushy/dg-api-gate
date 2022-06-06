@@ -26,6 +26,14 @@ try:
             res = await attachment_service.process_attachment()
         except S3Error as exc:
             print("error occurred.", exc)
+        except:
+            full_download_path = f"http://{json['minioEndPoint']}/attachments/assets/bad-attachment.png"
+            file_name = "bad-attachment.png"
+            value = {
+                "attachmentPath": full_download_path,
+                "fileName": file_name
+                }
+            return jsonify(value)
         return jsonify(res)
 except request.exceptions.RequestException as e:
     pass
