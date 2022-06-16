@@ -75,7 +75,7 @@ class AttachmentService:
                         }
                 os.remove(file_name)
         except:
-            full_download_path = f"http://{self.minio_end_point}/attachments/assets/bad-attachment.png"
+            full_download_path = f"http://{self.minio_end_point}/attachments/bad-attachment.png"
             file_name = "bad-attachment.png"
             value = {
                 "attachmentPath": full_download_path,

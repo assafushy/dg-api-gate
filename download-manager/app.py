@@ -27,7 +27,7 @@ try:
         except S3Error as exc:
             print("error occurred.", exc)
         except:
-            full_download_path = f"http://{json['minioEndPoint']}/attachments/assets/bad-attachment.png"
+            full_download_path = f"http://{json['minioEndPoint']}/attachments/bad-attachment.png"
             file_name = "bad-attachment.png"
             value = {
                 "attachmentPath": full_download_path,
