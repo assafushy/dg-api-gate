@@ -97,7 +97,22 @@ export class MinioController {
       secretKey: process.env.MINIO_ROOT_PASSWORD,
     });
     this.standardizeRequest(minioRequest);
-      s3Client.bucketExists(minioRequest.bucketName).then((exsistRes) => {
+
+    // Define the lifecycle policy
+    const lifecycleConfig = {
+        Rule: [{
+            "ID": "Expire after one day",
+            "Status": "Enabled",
+            "Filter": {
+                "Prefix": "",
+            },
+            "Expiration": {
+                "Days": 1,
+            }
+        }]
+    };
+
+    s3Client.bucketExists(minioRequest.bucketName).then((exsistRes) => {
         if (exsistRes) {
           logger.info(`Bucket - ${minioRequest.bucketName} exsists.`);
           return resolve(`Bucket - ${minioRequest.bucketName} exsists.`);
@@ -116,12 +131,19 @@ export class MinioController {
           };
           s3Client
             .makeBucket(minioRequest.bucketName, process.env.MINIO_REGION)
-            .then(() =>
-              s3Client.setBucketPolicy(
+            .then(() => s3Client.setBucketPolicy(
                 minioRequest.bucketName,
                 JSON.stringify(policy)
-              )
-            );
+            ))
+            .then(() => s3Client.setBucketLifecycle(
+                minioRequest.bucketName,
+                lifecycleConfig
+            ))
+            .catch((err) => {
+              logger.error(err);
+              return reject(err.message)
+            });
+
           logger.info(
             `Bucket ${minioRequest.bucketName} created successfully in "${process.env.MINIO_REGION}".`
           );
@@ -132,7 +154,8 @@ export class MinioController {
         return reject(err.message)
       });
   });
-  }
+}
+
   private standardizeRequest(minioRequest :MinioRequest){
     minioRequest.bucketName = minioRequest.bucketName.toLowerCase();
     minioRequest.bucketName = minioRequest.bucketName.replace("_", "-");
