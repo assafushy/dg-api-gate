@@ -1,6 +1,6 @@
 {
   "name": "dg-api-gate",
-  "version": "0.12.3",
+  "version": "0.13.0",
   "description": "a document generator api gate",
   "main": "server.js",
   "scripts": {
