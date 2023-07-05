@@ -107,7 +107,7 @@ export class MinioController {
                 "Prefix": "",
             },
             "Expiration": {
-                "Days": 2,
+                "Days": 1,
             }
         }]
     };
