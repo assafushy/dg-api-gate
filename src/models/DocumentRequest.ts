@@ -35,6 +35,7 @@ export interface DataDescriptor {
   rangeType?: string[];
   planId?: number;
   testSuiteArray?: number[];
+  branchName?: string;
   linkTypeFilterArray?: string[];
   includeAttachments?: boolean;
 }

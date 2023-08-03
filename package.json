@@ -24,6 +24,7 @@
     "jaeger-client": "^3.18.1",
     "minio": "^7.0.26",
     "moment": "^2.25.3",
+    "uuid": "^8.3.2",
     "winston": "^3.3.3"
   },
   "devDependencies": {
